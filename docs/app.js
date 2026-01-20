@@ -69,13 +69,6 @@ const App = {
             btn.addEventListener('click', () => this.closeModal());
         });
 
-        const leadForm = document.getElementById('lead-form');
-        if (leadForm) {
-            leadForm.addEventListener('submit', (e) => {
-                e.preventDefault();
-                this.handleLeadSubmit();
-            });
-        }
     },
 
     /**
