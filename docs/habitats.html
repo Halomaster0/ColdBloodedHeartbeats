@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Habitats | Cold Blooded Heartbeats</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header id="main-header">
+        <nav>
+            <div class="logo">
+                <a href="index.html"
+                    style="text-decoration: none; color: inherit; display: flex; flex-direction: row; align-items: center; gap: 12px;">
+                    <img src="Assets/IMG_6200.JPEG" alt="Cold Blooded Heartbeats Logo">
+                    <div class="logo-text">Cold Blooded Heartbeats</div>
+                </a>
+            </div>
+            <button class="menu-toggle" aria-label="Toggle Navigation">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </button>
+            <ul class="nav-links" id="nav-menu">
+                <li class="nav-item"><a href="animals.html">Live Animals</a></li>
+                <li class="nav-item"><a href="pantry.html">The Pantry</a></li>
+                <li class="nav-item"><a href="habitats.html">Habitats</a></li>
+                <li class="nav-item"><a href="coming-soon.html">Care Center</a></li>
+                <li class="nav-item"><a href="#" class="btn-consult">Bookings</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="browse-habitats">
+            <h1 class="section-title">Habit Ecosystems</h1>
+            <p class="text-center" style="margin-bottom: var(--spacing-lg);">Engineered for biology, styled for the
+                home.</p>
+
+            <div class="grid">
+                <div class="card glass-panel animal-card">
+                    <img src="Assets/IMG_6200.JPEG" alt="PVC Enclosure" class="habitat-img">
+                    <div class="animal-info">
+                        <h3>PVC Apex <span class="morph">4x2x2 Matte</span></h3>
+                        <p>The gold standard for humidity retention.</p>
+                        <div class="card-footer">
+                            <span class="price">$399.00</span>
+                            <a href="index.html#tank-configurator" class="btn btn-sm">Configure</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="card glass-panel animal-card">
+                    <img src="Assets/IMG_6200.JPEG" alt="Bioactive Terrarium" class="habitat-img">
+                    <div class="animal-info">
+                        <h3>Bio-Booster <span class="morph">Arboreal Kit</span></h3>
+                        <p>Everything needed for a living soil ecosystem.</p>
+                        <div class="card-footer">
+                            <span class="price">$145.00</span>
+                            <button class="btn btn-sm btn-buy">Buy Now</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Extra Habitat Item 1 -->
+                <div class="card glass-panel animal-card">
+                    <img src="Assets/IMG_6200.JPEG" alt="PVC Fortress 5x3x3" class="habitat-img">
+                    <div class="animal-info">
+                        <h3>PVC Fortress <span class="morph">5x3x3 XL</span></h3>
+                        <p>Maximum volume for high-vitality giants.</p>
+                        <div class="card-footer">
+                            <span class="price">$749.00</span>
+                            <button class="btn btn-sm btn-buy">Buy Now</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Extra Habitat Item 2 -->
+                <div class="card glass-panel animal-card">
+                    <img src="Assets/IMG_6200.JPEG" alt="Mistify Pro Misting System" class="habitat-img">
+                    <div class="animal-info">
+                        <h3>Mistify Pro <span class="morph">Dual Nozzle</span></h3>
+                        <p>Automated precision humidity control.</p>
+                        <div class="card-footer">
+                            <span class="price">$189.00</span>
+                            <button class="btn btn-sm btn-buy">Buy Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer id="main-footer">
+        <p>&copy; 2026 Cold Blooded Heartbeats. All rights reserved.</p>
+    </footer>
+
+    <!-- Lead Collection Modal -->
+    <div id="lead-modal" class="modal-overlay hidden">
+        <div class="modal-content glass-panel">
+            <button class="modal-close">&times;</button>
+            <div id="modal-form-content">
+                <h2 id="modal-title">Specialty Consultation</h2>
+                <p id="modal-subtitle">Leave your details and our keepers will reach back shortly.</p>
+                <form id="lead-form">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" required placeholder="Your Name">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" required placeholder="Email Address">
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Your Request</label>
+                        <textarea id="message" rows="4" placeholder="How can we help?"></textarea>
+                    </div>
+                    <button type="submit" class="btn">Submit Request</button>
+                </form>
+            </div>
+            <div id="modal-success" class="hidden text-center">
+                <h2>Request Received</h2>
+                <p>A specialist will be in touch via email within 24 hours.</p>
+                <button class="btn modal-close-btn">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>

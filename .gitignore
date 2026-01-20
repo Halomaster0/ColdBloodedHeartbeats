@@ -1,0 +1,12 @@
+# Intermediate files
+.tmp/
+
+# sensitive data
+.env
+credentials.json
+token.json
+
+# Environment
+.venv/
+__pycache__/
+*.pyc

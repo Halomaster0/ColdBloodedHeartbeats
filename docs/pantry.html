@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Pantry | Cold Blooded Heartbeats</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header id="main-header">
+        <nav>
+            <div class="logo">
+                <a href="index.html"
+                    style="text-decoration: none; color: inherit; display: flex; flex-direction: row; align-items: center; gap: 12px;">
+                    <img src="Assets/IMG_6200.JPEG" alt="Cold Blooded Heartbeats Logo">
+                    <div class="logo-text">Cold Blooded Heartbeats</div>
+                </a>
+            </div>
+            <button class="menu-toggle" aria-label="Toggle Navigation">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </button>
+            <ul class="nav-links" id="nav-menu">
+                <li class="nav-item"><a href="animals.html">Live Animals</a></li>
+                <li class="nav-item"><a href="pantry.html">The Pantry</a></li>
+                <li class="nav-item"><a href="habitats.html">Habitats</a></li>
+                <li class="nav-item"><a href="coming-soon.html">Care Center</a></li>
+                <li class="nav-item"><a href="#" class="btn-consult">Bookings</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="browse-pantry">
+            <h1 class="section-title">The Pantry</h1>
+            <p class="text-center" style="margin-bottom: var(--spacing-lg);">Premium nutrition for peak vitality.</p>
+
+            <div class="grid">
+                <div class="card glass-panel animal-card">
+                    <img src="Assets/IMG_6200.JPEG" alt="Dubia Roaches" class="pantry-img">
+                    <div class="animal-info">
+                        <h3>Dubia Roaches <span class="morph">Fresh Large</span></h3>
+                        <p>High protein, low chitin feeders.</p>
+                        <div class="card-footer">
+                            <span class="price">$19.99</span>
+                            <button class="btn btn-sm btn-subscribe">Subscribe</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card glass-panel animal-card">
+                    <img src="Assets/IMG_6200.JPEG" alt="Frozen Mice" class="pantry-img">
+                    <div class="animal-info">
+                        <h3>Frozen Pinky Mice <span class="morph">25 count</span></h3>
+                        <p>Laboratory grade nutrition.</p>
+                        <div class="card-footer">
+                            <span class="price">$24.99</span>
+                            <button class="btn btn-sm btn-buy">Buy Now</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Extra Pantry Item 1 -->
+                <div class="card glass-panel animal-card">
+                    <img src="Assets/IMG_6200.JPEG" alt="UVB Kit" class="pantry-img">
+                    <div class="animal-info">
+                        <h3>Arcadia ProT5 Kit <span class="morph">12% UVB</span></h3>
+                        <p>Essential forest dwelling sunlight.</p>
+                        <div class="card-footer">
+                            <span class="price">$84.99</span>
+                            <button class="btn btn-sm btn-buy">Buy Now</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Extra Pantry Item 2 -->
+                <div class="card glass-panel animal-card">
+                    <img src="Assets/IMG_6200.JPEG" alt="Calcium + D3 Supplement" class="pantry-img">
+                    <div class="animal-info">
+                        <h3>Calcium + D3 <span class="morph">Ultra Fine</span></h3>
+                        <p>Bioavailable skeletal support.</p>
+                        <div class="card-footer">
+                            <span class="price">$12.50</span>
+                            <button class="btn btn-sm btn-buy">Buy Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer id="main-footer">
+        <p>&copy; 2026 Cold Blooded Heartbeats. All rights reserved.</p>
+    </footer>
+
+    <!-- Lead Collection Modal -->
+    <div id="lead-modal" class="modal-overlay hidden">
+        <div class="modal-content glass-panel">
+            <button class="modal-close">&times;</button>
+            <div id="modal-form-content">
+                <h2 id="modal-title">Specialty Consultation</h2>
+                <p id="modal-subtitle">Leave your details and our keepers will reach back shortly.</p>
+                <form id="lead-form">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" required placeholder="Your Name">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" required placeholder="Email Address">
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Your Request</label>
+                        <textarea id="message" rows="4" placeholder="How can we help?"></textarea>
+                    </div>
+                    <button type="submit" class="btn">Submit Request</button>
+                </form>
+            </div>
+            <div id="modal-success" class="hidden text-center">
+                <h2>Request Received</h2>
+                <p>A specialist will be in touch via email within 24 hours.</p>
+                <button class="btn modal-close-btn">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
