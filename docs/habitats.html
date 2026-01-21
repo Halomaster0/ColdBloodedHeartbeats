@@ -11,6 +11,7 @@
         href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 </head>
 
 <body>
@@ -128,6 +129,82 @@
                 <button class="btn modal-close-btn">Close</button>
             </div>
         </div>
+    </div>
+
+    <!-- Professional Checkout Modal -->
+    <div id="checkout-modal" class="modal-overlay hidden">
+        <div class="modal-content glass-panel checkout-modal">
+            <button class="modal-close checkout-close">&times;</button>
+            <div id="checkout-content">
+                <h2 class="checkout-title">Complete Your Order</h2>
+                <div class="checkout-summary">
+                    <h3>Order Summary</h3>
+                    <div class="checkout-order-list">
+                        <!-- Items injected by JS -->
+                    </div>
+                    <div class="checkout-total">
+                        <span>Total</span>
+                        <span class="checkout-total-amount">$0.00</span>
+                    </div>
+                </div>
+                <form id="checkout-form">
+                    <div class="form-group">
+                        <label for="checkout-email">Email Address</label>
+                        <input type="email" id="checkout-email" name="email" required placeholder="your@email.com">
+                    </div>
+                    <div class="form-group">
+                        <label>Payment Method</label>
+                        <div class="payment-options">
+                            <label class="payment-option">
+                                <input type="radio" name="payment-method" value="E-Transfer" required>
+                                <span class="payment-card">💳 E-Transfer</span>
+                            </label>
+                            <label class="payment-option">
+                                <input type="radio" name="payment-method" value="PayPal">
+                                <span class="payment-card">🅿️ PayPal</span>
+                            </label>
+                            <label class="payment-option">
+                                <input type="radio" name="payment-method" value="Card">
+                                <span class="payment-card">💳 Card</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div id="payment-details" class="payment-details-section">
+                        <!-- Dynamic content based on payment method -->
+                    </div>
+                    <button type="submit" class="btn btn-submit-order">Submit Order</button>
+                </form>
+            </div>
+            <div id="checkout-success" class="hidden text-center">
+                <h2>✅ Order Received!</h2>
+                <p>We've sent a confirmation email. You'll receive payment instructions shortly.</p>
+                <button class="btn checkout-close">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cart Sidebar -->
+    <div class="cart-sidebar">
+        <div class="cart-header">
+            <h3>Your Cart</h3>
+            <button class="cart-close">&times;</button>
+        </div>
+        <div class="cart-items">
+            <!-- Items injected by JS -->
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total</span>
+                <span class="total-amount">$0.00</span>
+            </div>
+            <button class="btn btn-checkout">Checkout</button>
+        </div>
+    </div>
+
+    <!-- Floating Cart Trigger -->
+    <div class="cart-trigger">
+        <span class="cart-icon">🛒</span>
+        <span class="cart-count">0</span>
     </div>
 
     <script src="app.js"></script>

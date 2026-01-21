@@ -5,6 +5,12 @@
 
 const App = {
     currentStep: 1,
+    cart: [],
+    emailJS: {
+        publicKey: 'tjFiVTG59iT5vLlQm',
+        serviceID: 'service_jshwbap',
+        templateID: 'template_8yplknt'
+    },
 
     /**
      * Initialize all components and event listeners
@@ -12,11 +18,19 @@ const App = {
     init() {
         console.log("🚀 Cold Blooded Heartbeats Framework Initialized");
 
+        this.loadCart();
         this.setupEventListeners();
         this.revealOnScroll();
         this.updateConfiguratorUI();
-        this.initBuyButtons(); // Initialize product interaction logic
+        this.initProductButtons(); // Combined Buy/Inquiry logic
         this.toggleMenu(); // Initialize mobile menu
+        this.initEmailJS();
+    },
+
+    initEmailJS() {
+        if (window.emailjs) {
+            emailjs.init(this.emailJS.publicKey);
+        }
     },
 
     /**
@@ -69,6 +83,135 @@ const App = {
             btn.addEventListener('click', () => this.closeModal());
         });
 
+        // Checkout Modal Close
+        document.querySelectorAll('.checkout-close').forEach(btn => {
+            btn.addEventListener('click', () => this.closeCheckoutModal());
+        });
+
+        // Cart Toggle
+        const cartTrigger = document.querySelector('.cart-trigger');
+        const cartClose = document.querySelector('.cart-close');
+        if (cartTrigger) cartTrigger.addEventListener('click', () => this.toggleCart(true));
+        if (cartClose) cartClose.addEventListener('click', () => this.toggleCart(false));
+
+        // Checkout Button
+        const btnCheckout = document.querySelector('.btn-checkout');
+        if (btnCheckout) {
+            btnCheckout.addEventListener('click', () => {
+                if (this.cart.length === 0) return alert("Your cart is empty!");
+                this.toggleCart(false);
+                this.openCheckoutModal();
+            });
+        }
+
+        // Form Submission Overload
+        const leadForm = document.getElementById('lead-form');
+        if (leadForm) {
+            leadForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                this.handleLeadSubmit();
+            });
+        }
+
+        // Checkout Form Submission
+        const checkoutForm = document.getElementById('checkout-form');
+        if (checkoutForm) {
+            checkoutForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                // Prevent double submission
+                if (checkoutForm.dataset.submitting === 'true') return;
+                checkoutForm.dataset.submitting = 'true';
+                this.handleCheckoutSubmit().finally(() => {
+                    checkoutForm.dataset.submitting = 'false';
+                });
+            });
+        }
+
+        // Payment method change listener
+        document.querySelectorAll('input[name="payment-method"]').forEach(radio => {
+            radio.addEventListener('change', (e) => this.handlePaymentMethodChange(e.target.value));
+        });
+    },
+
+    /**
+     * Cart Management
+     */
+    loadCart() {
+        this.cart = JSON.parse(localStorage.getItem('cbh_cart') || '[]');
+        this.updateCartUI();
+    },
+
+    saveCart() {
+        localStorage.setItem('cbh_cart', JSON.stringify(this.cart));
+        this.updateCartUI();
+    },
+
+    addToCart(product) {
+        this.cart.push(product);
+        this.saveCart();
+        this.showToast(`${product.name} added to cart!`);
+    },
+
+    removeFromCart(index) {
+        this.cart.splice(index, 1);
+        this.saveCart();
+    },
+
+    showToast(message) {
+        // Create toast notification
+        const toast = document.createElement('div');
+        toast.className = 'toast-notification';
+        toast.innerText = message;
+        document.body.appendChild(toast);
+
+        setTimeout(() => toast.classList.add('show'), 10);
+        setTimeout(() => {
+            toast.classList.remove('show');
+            setTimeout(() => toast.remove(), 300);
+        }, 2000);
+    },
+
+    updateCartUI() {
+        const cartItemsContainer = document.querySelector('.cart-items');
+
+        if (!cartItemsContainer) return;
+
+        cartItemsContainer.innerHTML = '';
+        let total = 0;
+
+        this.cart.forEach((item, index) => {
+            const itemElement = document.createElement('div');
+            itemElement.className = 'cart-item';
+            itemElement.innerHTML = `
+                <div class="cart-item-info">
+                    <h4>${item.name}</h4>
+                    <p>$${item.price.toFixed(2)}</p>
+                </div>
+                <button class="cart-item-remove" onclick="App.removeFromCart(${index})">&times;</button>
+            `;
+            cartItemsContainer.appendChild(itemElement);
+            total += item.price;
+        });
+
+        const totalAmount = document.querySelector('.total-amount');
+        if (totalAmount) totalAmount.innerText = `$${total.toFixed(2)}`;
+
+        const countBadge = document.querySelector('.cart-count');
+        if (countBadge) countBadge.innerText = this.cart.length;
+    },
+
+    /**
+     * Mobile Cart Toggle
+     */
+    toggleCart(force) {
+        const cartSidebar = document.querySelector('.cart-sidebar');
+        if (cartSidebar) {
+            if (force !== undefined) {
+                force ? cartSidebar.classList.add('active') : cartSidebar.classList.remove('active');
+            } else {
+                cartSidebar.classList.toggle('active');
+            }
+        }
     },
 
     /**
@@ -122,7 +265,7 @@ const App = {
     /**
      * Modal Management
      */
-    openModal(title, subtitle) {
+    openModal(title, subtitle, prefillMessage = '') {
         document.getElementById('modal-title').innerText = title;
         document.getElementById('modal-subtitle').innerText = subtitle;
         const modal = document.getElementById('lead-modal');
@@ -132,40 +275,252 @@ const App = {
 
         document.getElementById('modal-form-content').classList.remove('hidden');
         document.getElementById('modal-success').classList.add('hidden');
+
+        // Pre-fill message if provided
+        const messageField = document.getElementById('message');
+        if (messageField && prefillMessage) {
+            messageField.value = prefillMessage;
+        }
+    },
+
+    openCheckoutModal() {
+        // Build order summary
+        const total = this.cart.reduce((sum, item) => sum + item.price, 0);
+
+        // Open checkout modal
+        const checkoutModal = document.getElementById('checkout-modal');
+        if (!checkoutModal) return;
+
+        // Update order summary display
+        const orderList = checkoutModal.querySelector('.checkout-order-list');
+        if (orderList) {
+            orderList.innerHTML = this.cart.map(item => `
+                <div class="checkout-order-item">
+                    <span>${item.name}</span>
+                    <span>$${item.price.toFixed(2)}</span>
+                </div>
+            `).join('');
+        }
+
+        const totalDisplay = checkoutModal.querySelector('.checkout-total-amount');
+        if (totalDisplay) totalDisplay.innerText = `$${total.toFixed(2)}`;
+
+        checkoutModal.classList.remove('hidden');
+        setTimeout(() => checkoutModal.classList.add('active'), 10);
     },
 
     closeModal() {
         const modal = document.getElementById('lead-modal');
-        modal.classList.remove('active');
-        // Wait for transition to finish before hiding display
-        setTimeout(() => modal.classList.add('hidden'), 400);
+        if (modal) {
+            modal.classList.remove('active');
+            // Wait for transition to finish before hiding display
+            setTimeout(() => modal.classList.add('hidden'), 400);
+        }
     },
 
-    handleLeadSubmit() {
+    closeCheckoutModal() {
+        const checkoutModal = document.getElementById('checkout-modal');
+        if (checkoutModal) {
+            checkoutModal.classList.remove('active');
+            setTimeout(() => checkoutModal.classList.add('hidden'), 400);
+        }
+    },
+
+    async handleLeadSubmit() {
         const leadForm = document.getElementById('lead-form');
         const name = document.getElementById('name').value;
         const email = document.getElementById('email').value;
         const message = document.getElementById('message').value;
 
-        console.log(`📡 Handoff to Layer 3: Lead for ${name} (${email})`);
+        // 1. Submit to Formspree
+        try {
+            const formData = new FormData(leadForm);
+            const response = await fetch(leadForm.action, {
+                method: 'POST',
+                body: formData,
+                headers: { 'Accept': 'application/json' }
+            });
 
-        // Simulated Persistence for Local Demo
-        const leads = JSON.parse(localStorage.getItem('cbh_leads') || '[]');
-        leads.push({
-            timestamp: new Date().toISOString(),
-            name,
-            email,
-            message,
-            status: 'NEW'
-        });
-        localStorage.setItem('cbh_leads', JSON.stringify(leads));
+            if (response.ok) {
+                // 2. Send EmailJS Confirmation
+                if (window.emailjs) {
+                    await emailjs.send(this.emailJS.serviceID, this.emailJS.templateID, {
+                        to_name: name,
+                        to_email: email,
+                        order_details: message,
+                        reply_to: 'info@coldbloodedheartbeats.com'
+                    });
+                }
 
-        // Switch UI state
-        document.getElementById('modal-form-content').classList.add('hidden');
-        document.getElementById('modal-success').classList.remove('hidden');
+                // Switch UI state
+                document.getElementById('modal-form-content').classList.add('hidden');
+                document.getElementById('modal-success').classList.remove('hidden');
 
-        // IMPORTANT: Reset form fields for next use
-        leadForm.reset();
+                leadForm.reset();
+            } else {
+                alert("Submission failed. Please try again.");
+            }
+        } catch (error) {
+            console.error("Error submitting form:", error);
+            alert("An error occurred. Please try again.");
+        }
+    },
+
+    async handleCheckoutSubmit() {
+        const checkoutForm = document.getElementById('checkout-form');
+        const customerEmail = document.getElementById('checkout-email').value;
+        const paymentMethod = document.querySelector('input[name="payment-method"]:checked')?.value;
+
+        if (!paymentMethod) {
+            return alert("Please select a payment method");
+        }
+
+        const orderSummary = this.cart.map(item => `- ${item.name} ($${item.price.toFixed(2)})`).join('\n');
+        const total = this.cart.reduce((sum, item) => sum + item.price, 0);
+
+        try {
+            // 1. Submit to Formspree (owner notification)
+            const formData = new FormData();
+            formData.append('email', customerEmail);
+            formData.append('payment_method', paymentMethod);
+            formData.append('order_summary', `${orderSummary}\n\nTotal: $${total.toFixed(2)}`);
+            formData.append('total', total.toFixed(2));
+
+            const response = await fetch('https://formspree.io/f/mjggezoe', {
+                method: 'POST',
+                body: formData,
+                headers: { 'Accept': 'application/json' }
+            });
+
+            if (response.ok) {
+                // 2. Send EmailJS confirmation to customer (ONLY ONCE)
+                if (window.emailjs) {
+                    const emailData = {
+                        to_name: customerEmail.split('@')[0],
+                        to_email: customerEmail,
+                        order_details: `${orderSummary}\n\nTotal: $${total.toFixed(2)}\nPayment Method: ${paymentMethod}`,
+                        reply_to: 'info@coldbloodedheartbeats.com'
+                    };
+
+                    // Add payment-specific info
+                    if (paymentMethod === 'Card') {
+                        const cardholderName = document.getElementById('cardholder-name')?.value;
+                        if (cardholderName) {
+                            emailData.order_details += `\nCardholder: ${cardholderName}`;
+                            formData.append('cardholder_name', cardholderName);
+                        }
+                    }
+
+                    await emailjs.send(this.emailJS.serviceID, this.emailJS.templateID, emailData);
+                }
+
+                // Show success message
+                const checkoutContent = document.getElementById('checkout-content');
+                const checkoutSuccess = document.getElementById('checkout-success');
+
+                if (checkoutContent) checkoutContent.classList.add('hidden');
+                if (checkoutSuccess) checkoutSuccess.classList.remove('hidden');
+
+                // Clear cart
+                this.cart = [];
+                this.saveCart();
+
+                checkoutForm.reset();
+            } else {
+                alert("Checkout failed. Please try again.");
+            }
+        } catch (error) {
+            console.error("Error during checkout:", error);
+            alert("An error occurred. Please try again.");
+        }
+    },
+
+    handlePaymentMethodChange(method) {
+        const paymentDetailsSection = document.getElementById('payment-details');
+        if (!paymentDetailsSection) return;
+
+        let detailsHTML = '';
+
+        switch (method) {
+            case 'E-Transfer':
+                detailsHTML = `
+                    <div class="payment-detail-box">
+                        <p class="payment-info">📧 E-Transfer instructions will be sent to your email after order confirmation.</p>
+                    </div>
+                `;
+                break;
+            case 'PayPal':
+                detailsHTML = `
+                    <div class="payment-detail-box">
+                        <p class="payment-info">💡 Invoice will be sent to your email. You'll receive a PayPal payment link.</p>
+                    </div>
+                `;
+                break;
+            case 'Card':
+                detailsHTML = `
+                    <div class="card-payment-fields">
+                        <div class="form-group">
+                            <label for="cardholder-name">Cardholder Name</label>
+                            <input type="text" id="cardholder-name" name="cardholder_name" placeholder="Full Name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="card-number">Card Number</label>
+                            <input type="text" id="card-number" name="card_number" placeholder="XXXX XXXX XXXX XXXX" maxlength="19" required>
+                        </div>
+                        <div class="card-details-row">
+                            <div class="form-group">
+                                <label for="card-expiry">Expiration</label>
+                                <input type="text" id="card-expiry" name="card_expiry" placeholder="MM/YY" maxlength="5" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="card-cvv">CVV</label>
+                                <input type="text" id="card-cvv" name="card_cvv" placeholder="***" maxlength="3" required>
+                            </div>
+                        </div>
+                        <p class="payment-info">💳 Card will be processed securely. You'll receive confirmation via email.</p>
+                    </div>
+                `;
+                break;
+        }
+
+        paymentDetailsSection.innerHTML = detailsHTML;
+
+        // Add input formatting for card fields
+        if (method === 'Card') {
+            this.initCardFormatting();
+        }
+    },
+
+    initCardFormatting() {
+        // Format card number with spaces
+        const cardNumberInput = document.getElementById('card-number');
+        if (cardNumberInput) {
+            cardNumberInput.addEventListener('input', (e) => {
+                let value = e.target.value.replace(/\s/g, '');
+                let formattedValue = value.match(/.{1,4}/g)?.join(' ') || value;
+                e.target.value = formattedValue;
+            });
+        }
+
+        // Format expiry date
+        const expiryInput = document.getElementById('card-expiry');
+        if (expiryInput) {
+            expiryInput.addEventListener('input', (e) => {
+                let value = e.target.value.replace(/\D/g, '');
+                if (value.length >= 2) {
+                    value = value.slice(0, 2) + '/' + value.slice(2, 4);
+                }
+                e.target.value = value;
+            });
+        }
+
+        // Only allow numbers in CVV
+        const cvvInput = document.getElementById('card-cvv');
+        if (cvvInput) {
+            cvvInput.addEventListener('input', (e) => {
+                e.target.value = e.target.value.replace(/\D/g, '');
+            });
+        }
     },
 
     /**
@@ -204,16 +559,30 @@ const App = {
     },
 
     /**
-     * Initialize Product Interaction (Buy/Subscribe)
+     * Combined Buy/Inquiry logic
      */
-    initBuyButtons() {
-        document.querySelectorAll('.btn-buy, .btn-subscribe').forEach(btn => {
+    initProductButtons() {
+        document.querySelectorAll('.btn-buy, .btn-subscribe, .btn-sm').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 const card = e.target.closest('.card');
-                const title = card ? card.querySelector('h3').innerText : 'Product Inquiry';
-                const action = e.target.classList.contains('btn-subscribe') ? 'Subscription' : 'Purchase';
+                if (!card) return;
 
-                this.openModal(`${action} Inquiry: ${title}`, 'Specify your preferences and our specialist will finalize the order with you.');
+                const name = card.querySelector('h3').innerText;
+                const priceMatch = card.querySelector('.price').innerText.match(/\d+\.?\d*/);
+                const price = priceMatch ? parseFloat(priceMatch[0]) : 0;
+
+                // Determine if it's a direct buy or inquiry
+                const isDirectBuy = btn.classList.contains('btn-buy') || btn.classList.contains('btn-subscribe');
+                const isLive = card.classList.contains('animal-card') && !card.querySelector('.pantry-img') && !card.querySelector('.habitat-img');
+
+                if (isLive) {
+                    // Pre-fill inquiry with animal details
+                    const sku = card.querySelector('.sku')?.innerText || '';
+                    const prefillText = `I'm interested in: ${name}\n${sku}\nPrice: $${price.toFixed(2)}\n\nAdditional questions:\n`;
+                    this.openModal(`Inquiry: ${name}`, 'Live animals require a brief consultation before purchase.', prefillText);
+                } else if (isDirectBuy) {
+                    this.addToCart({ name, price });
+                }
             });
         });
     },
