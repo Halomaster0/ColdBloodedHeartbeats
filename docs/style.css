@@ -1070,3 +1070,69 @@ nav:hover {
 .card-details-row .form-group {
     margin-bottom: 0;
 }
+
+/* The Den Promo Section */
+#the-den-promo {
+    margin-top: var(--spacing-xl);
+    padding-top: var(--spacing-xl);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.promo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--spacing-md);
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.promo-card {
+    text-align: center;
+    padding: var(--spacing-lg);
+    transition: var(--transition);
+}
+
+.promo-card:hover {
+    transform: translateY(-8px);
+}
+
+.promo-icon {
+    font-size: 3rem;
+    margin-bottom: var(--spacing-sm);
+}
+
+.promo-card h3 {
+    font-family: var(--font-accent);
+    font-size: 1.5rem;
+    margin-bottom: var(--spacing-sm);
+    color: var(--clr-accent);
+}
+
+.promo-card p {
+    opacity: 0.8;
+    line-height: 1.6;
+}
+
+.promo-highlight {
+    border: 2px solid var(--clr-sage);
+    background: rgba(78, 110, 129, 0.1);
+}
+
+.btn-den {
+    background: var(--clr-sage);
+    color: white;
+    display: inline-block;
+    text-decoration: none;
+}
+
+.btn-den:hover {
+    background: #5d7f91;
+    box-shadow: 0 8px 20px rgba(78, 110, 129, 0.5);
+    transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+    .promo-grid {
+        grid-template-columns: 1fr;
+    }
+}
