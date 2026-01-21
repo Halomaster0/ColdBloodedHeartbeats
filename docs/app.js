@@ -332,25 +332,18 @@ const App = {
         const email = document.getElementById('email').value;
         const message = document.getElementById('message').value;
 
-        // 1. Submit to Formspree
+        // 1. Submit to Netlify Forms
         try {
             const formData = new FormData(leadForm);
-            const response = await fetch(leadForm.action, {
+            const response = await fetch('/', {
                 method: 'POST',
-                body: formData,
-                headers: { 'Accept': 'application/json' }
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: new URLSearchParams(formData).toString()
             });
 
             if (response.ok) {
-                // 2. Send EmailJS Confirmation
-                if (window.emailjs) {
-                    await emailjs.send(this.emailJS.serviceID, this.emailJS.templateID, {
-                        to_name: name,
-                        to_email: email,
-                        order_details: message,
-                        reply_to: 'info@coldbloodedheartbeats.com'
-                    });
-                }
+                // 2. Send EmailJS Confirmation (optional - only for orders)
+                // For inquiries, we'll skip EmailJS and let Netlify handle notifications
 
                 // Switch UI state
                 document.getElementById('modal-form-content').classList.add('hidden');
@@ -379,17 +372,28 @@ const App = {
         const total = this.cart.reduce((sum, item) => sum + item.price, 0);
 
         try {
-            // 1. Submit to Formspree (owner notification)
-            const formData = new FormData();
-            formData.append('email', customerEmail);
-            formData.append('payment_method', paymentMethod);
-            formData.append('order_summary', `${orderSummary}\n\nTotal: $${total.toFixed(2)}`);
-            formData.append('total', total.toFixed(2));
+            // 1. Submit to Netlify Forms (owner notification)
+            const checkoutForm = document.getElementById('checkout-form');
+            const formData = new FormData(checkoutForm);
 
-            const response = await fetch('https://formspree.io/f/mjggezoe', {
+            // Add order details to form
+            formData.set('email', customerEmail);
+            formData.set('payment_method', paymentMethod);
+            formData.set('order_summary', `${orderSummary}\n\nTotal: $${total.toFixed(2)}`);
+            formData.set('total', total.toFixed(2));
+
+            // Add card details if applicable
+            if (paymentMethod === 'Card') {
+                const cardholderName = document.getElementById('cardholder-name')?.value;
+                if (cardholderName) {
+                    formData.set('cardholder_name', cardholderName);
+                }
+            }
+
+            const response = await fetch('/', {
                 method: 'POST',
-                body: formData,
-                headers: { 'Accept': 'application/json' }
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: new URLSearchParams(formData).toString()
             });
 
             if (response.ok) {
@@ -407,7 +411,6 @@ const App = {
                         const cardholderName = document.getElementById('cardholder-name')?.value;
                         if (cardholderName) {
                             emailData.order_details += `\nCardholder: ${cardholderName}`;
-                            formData.append('cardholder_name', cardholderName);
                         }
                     }
 

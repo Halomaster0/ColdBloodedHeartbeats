@@ -295,7 +295,12 @@
             <div id="modal-form-content">
                 <h2 id="modal-title">Specialty Consultation</h2>
                 <p id="modal-subtitle">Leave your details and our keepers will reach back shortly.</p>
-                <form id="lead-form" action="https://formspree.io/f/mjggezoe" method="POST">
+                <form id="lead-form" name="inquiry" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+                    <input type="hidden" name="form-name" value="inquiry">
+                    <!-- Honeypot for spam protection -->
+                    <p style="display:none;">
+                        <label>Don't fill this out: <input name="bot-field" /></label>
+                    </p>
                     <div class="form-group">
                         <label for="name">Name</label>
                         <input type="text" id="name" name="name" required placeholder="Your Name">
@@ -335,7 +340,11 @@
                         <span class="checkout-total-amount">$0.00</span>
                     </div>
                 </div>
-                <form id="checkout-form">
+                <form id="checkout-form" name="checkout" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+                    <input type="hidden" name="form-name" value="checkout">
+                    <p style="display:none;">
+                        <label>Don't fill this out: <input name="bot-field" /></label>
+                    </p>
                     <div class="form-group">
                         <label for="checkout-email">Email Address</label>
                         <input type="email" id="checkout-email" name="email" required placeholder="your@email.com">
