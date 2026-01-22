@@ -32,6 +32,7 @@
                 <li class="nav-item"><a href="animals.html">Live Animals</a></li>
                 <li class="nav-item"><a href="pantry.html">The Pantry</a></li>
                 <li class="nav-item"><a href="habitats.html">Habitats</a></li>
+                <li class="nav-item"><a href="den.html">The Den</a></li>
                 <li class="nav-item"><a href="coming-soon.html">Care Center</a></li>
                 <li class="nav-item"><a href="#" class="btn-consult">Bookings</a></li>
             </ul>
@@ -112,11 +113,7 @@
             <div id="modal-form-content">
                 <h2 id="modal-title">Specialty Consultation</h2>
                 <p id="modal-subtitle">Leave your details and our keepers will reach back shortly.</p>
-                <form id="lead-form" name="inquiry" method="POST" data-netlify="true" netlify-honeypot="bot-field">
-                    <input type="hidden" name="form-name" value="inquiry">
-                    <p style="display:none;">
-                        <label>Don't fill this out: <input name="bot-field" /></label>
-                    </p>
+                <form id="lead-form" action="https://formspree.io/f/mjggezoe" method="POST">
                     <div class="form-group">
                         <label for="name">Name</label>
                         <input type="text" id="name" name="name" required placeholder="Your Name">

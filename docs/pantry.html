@@ -33,6 +33,7 @@
                 <li class="nav-item"><a href="animals.html">Live Animals</a></li>
                 <li class="nav-item"><a href="pantry.html">The Pantry</a></li>
                 <li class="nav-item"><a href="habitats.html">Habitats</a></li>
+                <li class="nav-item"><a href="den.html">The Den</a></li>
                 <li class="nav-item"><a href="coming-soon.html">Care Center</a></li>
                 <li class="nav-item"><a href="#" class="btn-consult">Bookings</a></li>
             </ul>
@@ -45,7 +46,7 @@
             <p class="text-center" style="margin-bottom: var(--spacing-lg);">Premium nutrition for peak vitality.</p>
 
             <div class="grid">
-                <div class="card glass-panel animal-card">
+                <div class="card glass-panel">
                     <img src="Assets/IMG_6200.JPEG" alt="Dubia Roaches" class="pantry-img">
                     <div class="animal-info">
                         <h3>Dubia Roaches <span class="morph">Fresh Large</span></h3>
@@ -56,38 +57,53 @@
                         </div>
                     </div>
                 </div>
-                <div class="card glass-panel animal-card">
+                <div class="card glass-panel">
                     <img src="Assets/IMG_6200.JPEG" alt="Frozen Mice" class="pantry-img">
                     <div class="animal-info">
                         <h3>Frozen Pinky Mice <span class="morph">25 count</span></h3>
                         <p>Laboratory grade nutrition.</p>
                         <div class="card-footer">
                             <span class="price">$24.99</span>
-                            <button class="btn btn-sm btn-buy">Buy Now</button>
+                            <div class="qty-control">
+                                <button class="qty-btn qty-minus">-</button>
+                                <input type="number" value="1" min="1" class="qty-input">
+                                <button class="qty-btn qty-plus">+</button>
+                            </div>
+                            <button class="btn btn-sm btn-buy">Add to Cart</button>
                         </div>
                     </div>
                 </div>
                 <!-- Extra Pantry Item 1 -->
-                <div class="card glass-panel animal-card">
+                <div class="card glass-panel">
                     <img src="Assets/IMG_6200.JPEG" alt="UVB Kit" class="pantry-img">
                     <div class="animal-info">
                         <h3>Arcadia ProT5 Kit <span class="morph">12% UVB</span></h3>
                         <p>Essential forest dwelling sunlight.</p>
                         <div class="card-footer">
                             <span class="price">$84.99</span>
-                            <button class="btn btn-sm btn-buy">Buy Now</button>
+                            <div class="qty-control">
+                                <button class="qty-btn qty-minus">-</button>
+                                <input type="number" value="1" min="1" class="qty-input">
+                                <button class="qty-btn qty-plus">+</button>
+                            </div>
+                            <button class="btn btn-sm btn-buy">Add to Cart</button>
                         </div>
                     </div>
                 </div>
                 <!-- Extra Pantry Item 2 -->
-                <div class="card glass-panel animal-card">
+                <div class="card glass-panel">
                     <img src="Assets/IMG_6200.JPEG" alt="Calcium + D3 Supplement" class="pantry-img">
                     <div class="animal-info">
                         <h3>Calcium + D3 <span class="morph">Ultra Fine</span></h3>
                         <p>Bioavailable skeletal support.</p>
                         <div class="card-footer">
                             <span class="price">$12.50</span>
-                            <button class="btn btn-sm btn-buy">Buy Now</button>
+                            <div class="qty-control">
+                                <button class="qty-btn qty-minus">-</button>
+                                <input type="number" value="1" min="1" class="qty-input">
+                                <button class="qty-btn qty-plus">+</button>
+                            </div>
+                            <button class="btn btn-sm btn-buy">Add to Cart</button>
                         </div>
                     </div>
                 </div>
@@ -106,11 +122,7 @@
             <div id="modal-form-content">
                 <h2 id="modal-title">Specialty Consultation</h2>
                 <p id="modal-subtitle">Leave your details and our keepers will reach back shortly.</p>
-                <form id="lead-form" name="inquiry" method="POST" data-netlify="true" netlify-honeypot="bot-field">
-                    <input type="hidden" name="form-name" value="inquiry">
-                    <p style="display:none;">
-                        <label>Don't fill this out: <input name="bot-field" /></label>
-                    </p>
+                <form id="lead-form" action="https://formspree.io/f/mjggezoe" method="POST">
                     <div class="form-group">
                         <label for="name">Name</label>
                         <input type="text" id="name" name="name" required placeholder="Your Name">
@@ -150,11 +162,7 @@
                         <span class="checkout-total-amount">$0.00</span>
                     </div>
                 </div>
-                <form id="checkout-form" name="checkout" method="POST" data-netlify="true" netlify-honeypot="bot-field">
-                    <input type="hidden" name="form-name" value="checkout">
-                    <p style="display:none;">
-                        <label>Don't fill this out: <input name="bot-field" /></label>
-                    </p>
+                <form id="checkout-form" action="https://formspree.io/f/mjggezoe" method="POST">
                     <div class="form-group">
                         <label for="checkout-email">Email Address</label>
                         <input type="email" id="checkout-email" name="email" required placeholder="your@email.com">

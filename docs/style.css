@@ -594,7 +594,7 @@ nav:hover {
 }
 
 /* Animal Cards & Badges */
-.animal-card {
+.card {
     position: relative;
     padding: 0;
     overflow: hidden;
@@ -602,7 +602,8 @@ nav:hover {
 
 .animal-img,
 .pantry-img,
-.habitat-img {
+.habitat-img,
+.den-img {
     width: 100%;
     height: 250px;
     object-fit: cover;
@@ -1056,6 +1057,7 @@ nav:hover {
     opacity: 0.9;
     margin: 0;
 }
+
 /* Card Payment Fields */
 .card-payment-fields {
     margin-top: var(--spacing-sm);
@@ -1135,4 +1137,87 @@ nav:hover {
     .promo-grid {
         grid-template-columns: 1fr;
     }
+}
+
+/* Quantity Controls */
+.qty-control {
+    display: flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    margin-right: var(--spacing-sm);
+}
+
+.qty-btn {
+    background: transparent;
+    border: none;
+    color: var(--clr-accent);
+    width: 30px;
+    height: 38px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+}
+
+.qty-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.qty-input {
+    width: 40px;
+    background: transparent;
+    border: none;
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    color: white;
+    text-align: center;
+    font-family: var(--font-primary);
+    font-size: 0.9rem;
+    -moz-appearance: textfield;
+    appearance: textfield;
+}
+
+.qty-input::-webkit-outer-spin-button,
+.qty-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    appearance: none;
+    margin: 0;
+}
+
+/* Cart Quantity Display */
+.cart-item-qty {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 5px;
+}
+
+.cart-qty-btn {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: transparent;
+    color: white;
+    cursor: pointer;
+    font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cart-qty-val {
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.promo-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
 }

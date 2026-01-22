@@ -349,6 +349,21 @@ ColdBloodedHeartbeats/
 - Check `style.css` is loading
 - Validate no syntax errors in CSS
 
+### 🛠️ Migrating to Hostinger
+
+If you decide to move the site from GitHub/Netlify to Hostinger, the process is simple:
+
+1. **Get your files**: Download the `docs` folder from the GitHub repository.
+2. **Login to Hostinger**: Access your hPanel and go to the **File Manager**.
+3. **Upload Files**: Upload the **contents** of the `docs` folder directly into the `public_html` directory of your Hostinger site.
+    - *Note: Do not upload the folder itself, just the files inside it (index.html, style.css, app.js, etc.).*
+4. **Done!**: Since we are using Formspree and EmailJS, your forms and receipt system will work immediately on Hostinger without any configuration changes.
+
+### 🛠️ General Troubleshooting
+- **Images not loading**: Verify the path in HTML (e.g., `./Assets/images/...`) matches the file structure.
+- **Form not sending**: Check the browser console (Right-click > Inspect > Console) for error messages. Ensure the Formspree endpoint in the `action` attribute is correct.
+- **Styles missing**: Ensure `style.css` is in the same directory as your HTML files.
+
 ---
 
 ## 9. Support & Resources

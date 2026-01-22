@@ -131,6 +131,20 @@ const App = {
         document.querySelectorAll('input[name="payment-method"]').forEach(radio => {
             radio.addEventListener('change', (e) => this.handlePaymentMethodChange(e.target.value));
         });
+
+        // Quantity Selector Logic (+ / - buttons)
+        document.addEventListener('click', (e) => {
+            if (e.target.classList.contains('qty-plus')) {
+                const input = e.target.previousElementSibling;
+                input.value = parseInt(input.value) + 1;
+            }
+            if (e.target.classList.contains('qty-minus')) {
+                const input = e.target.nextElementSibling;
+                if (parseInt(input.value) > 1) {
+                    input.value = parseInt(input.value) - 1;
+                }
+            }
+        });
     },
 
     /**
@@ -146,10 +160,15 @@ const App = {
         this.updateCartUI();
     },
 
-    addToCart(product) {
-        this.cart.push(product);
+    addToCart(product, quantity = 1) {
+        const existingItem = this.cart.find(item => item.name === product.name && item.price === product.price);
+        if (existingItem) {
+            existingItem.quantity += quantity;
+        } else {
+            this.cart.push({ ...product, quantity });
+        }
         this.saveCart();
-        this.showToast(`${product.name} added to cart!`);
+        this.showToast(`${quantity} x ${product.name} added to cart!`);
     },
 
     removeFromCart(index) {
@@ -186,18 +205,35 @@ const App = {
                 <div class="cart-item-info">
                     <h4>${item.name}</h4>
                     <p>$${item.price.toFixed(2)}</p>
+                    <div class="cart-item-qty">
+                        <button class="cart-qty-btn" onclick="App.updateItemQuantity(${index}, -1)">-</button>
+                        <span class="cart-qty-val">${item.quantity}</span>
+                        <button class="cart-qty-btn" onclick="App.updateItemQuantity(${index}, 1)">+</button>
+                    </div>
                 </div>
                 <button class="cart-item-remove" onclick="App.removeFromCart(${index})">&times;</button>
             `;
             cartItemsContainer.appendChild(itemElement);
-            total += item.price;
+            total += (item.price * item.quantity);
         });
 
         const totalAmount = document.querySelector('.total-amount');
         if (totalAmount) totalAmount.innerText = `$${total.toFixed(2)}`;
 
         const countBadge = document.querySelector('.cart-count');
-        if (countBadge) countBadge.innerText = this.cart.length;
+        if (countBadge) {
+            const totalItems = this.cart.reduce((sum, item) => sum + item.quantity, 0);
+            countBadge.innerText = totalItems;
+        }
+    },
+
+    updateItemQuantity(index, delta) {
+        this.cart[index].quantity += delta;
+        if (this.cart[index].quantity < 1) {
+            this.removeFromCart(index);
+        } else {
+            this.saveCart();
+        }
     },
 
     /**
@@ -285,7 +321,7 @@ const App = {
 
     openCheckoutModal() {
         // Build order summary
-        const total = this.cart.reduce((sum, item) => sum + item.price, 0);
+        const total = this.cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
 
         // Open checkout modal
         const checkoutModal = document.getElementById('checkout-modal');
@@ -296,8 +332,8 @@ const App = {
         if (orderList) {
             orderList.innerHTML = this.cart.map(item => `
                 <div class="checkout-order-item">
-                    <span>${item.name}</span>
-                    <span>$${item.price.toFixed(2)}</span>
+                    <span>${item.name} (x${item.quantity})</span>
+                    <span>$${(item.price * item.quantity).toFixed(2)}</span>
                 </div>
             `).join('');
         }
@@ -328,22 +364,31 @@ const App = {
 
     async handleLeadSubmit() {
         const leadForm = document.getElementById('lead-form');
+        if (!leadForm) return;
+
         const name = document.getElementById('name').value;
         const email = document.getElementById('email').value;
         const message = document.getElementById('message').value;
 
-        // 1. Submit to Netlify Forms
+        // 1. Submit to Formspree
         try {
             const formData = new FormData(leadForm);
-            const response = await fetch('/', {
+            const response = await fetch(leadForm.action, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: new URLSearchParams(formData).toString()
+                body: formData,
+                headers: { 'Accept': 'application/json' }
             });
 
             if (response.ok) {
-                // 2. Send EmailJS Confirmation (optional - only for orders)
-                // For inquiries, we'll skip EmailJS and let Netlify handle notifications
+                // 2. Send EmailJS Confirmation (optional for inquiries)
+                if (window.emailjs) {
+                    await emailjs.send(this.emailJS.serviceID, this.emailJS.templateID, {
+                        to_name: name,
+                        to_email: email,
+                        order_details: message,
+                        reply_to: 'info@coldbloodedheartbeats.com'
+                    });
+                }
 
                 // Switch UI state
                 document.getElementById('modal-form-content').classList.add('hidden');
@@ -368,12 +413,14 @@ const App = {
             return alert("Please select a payment method");
         }
 
-        const orderSummary = this.cart.map(item => `- ${item.name} ($${item.price.toFixed(2)})`).join('\n');
-        const total = this.cart.reduce((sum, item) => sum + item.price, 0);
+        const orderSummary = this.cart.map(item => `- ${item.name} (x${item.quantity}) at $${item.price.toFixed(2)} each = $${(item.price * item.quantity).toFixed(2)}`).join('\n');
+        const total = this.cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
 
         try {
-            // 1. Submit to Netlify Forms (owner notification)
+            // 1. Submit to Formspree (owner notification)
             const checkoutForm = document.getElementById('checkout-form');
+            if (!checkoutForm) throw new Error("Checkout form not found");
+
             const formData = new FormData(checkoutForm);
 
             // Add order details to form
@@ -390,14 +437,14 @@ const App = {
                 }
             }
 
-            const response = await fetch('/', {
+            const response = await fetch(checkoutForm.action, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: new URLSearchParams(formData).toString()
+                body: formData,
+                headers: { 'Accept': 'application/json' }
             });
 
             if (response.ok) {
-                // 2. Send EmailJS confirmation to customer (ONLY ONCE)
+                // 2. Send EmailJS confirmation to customer
                 if (window.emailjs) {
                     const emailData = {
                         to_name: customerEmail.split('@')[0],
@@ -430,6 +477,7 @@ const App = {
 
                 checkoutForm.reset();
             } else {
+                console.error("Formspree response error:", response.status, response.statusText);
                 alert("Checkout failed. Please try again.");
             }
         } catch (error) {
@@ -576,7 +624,7 @@ const App = {
 
                 // Determine if it's a direct buy or inquiry
                 const isDirectBuy = btn.classList.contains('btn-buy') || btn.classList.contains('btn-subscribe');
-                const isLive = card.classList.contains('animal-card') && !card.querySelector('.pantry-img') && !card.querySelector('.habitat-img');
+                const isLive = card.classList.contains('animal-card');
 
                 if (isLive) {
                     // Pre-fill inquiry with animal details
@@ -584,7 +632,9 @@ const App = {
                     const prefillText = `I'm interested in: ${name}\n${sku}\nPrice: $${price.toFixed(2)}\n\nAdditional questions:\n`;
                     this.openModal(`Inquiry: ${name}`, 'Live animals require a brief consultation before purchase.', prefillText);
                 } else if (isDirectBuy) {
-                    this.addToCart({ name, price });
+                    const qtyInput = card.querySelector('.qty-input');
+                    const quantity = qtyInput ? parseInt(qtyInput.value) : 1;
+                    this.addToCart({ name, price }, quantity);
                 }
             });
         });
