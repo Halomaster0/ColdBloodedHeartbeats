@@ -313,9 +313,10 @@ const App = {
         document.getElementById('modal-success').classList.add('hidden');
 
         // Pre-fill message if provided
+        // Pre-fill message if provided, otherwise clear it
         const messageField = document.getElementById('message');
-        if (messageField && prefillMessage) {
-            messageField.value = prefillMessage;
+        if (messageField) {
+            messageField.value = prefillMessage || '';
         }
     },
 
@@ -326,6 +327,12 @@ const App = {
         // Open checkout modal
         const checkoutModal = document.getElementById('checkout-modal');
         if (!checkoutModal) return;
+
+        // Reset UI state (ensure form is shown, success is hidden)
+        const checkoutContent = document.getElementById('checkout-content');
+        const checkoutSuccess = document.getElementById('checkout-success');
+        if (checkoutContent) checkoutContent.classList.remove('hidden');
+        if (checkoutSuccess) checkoutSuccess.classList.add('hidden');
 
         // Update order summary display
         const orderList = checkoutModal.querySelector('.checkout-order-list');
@@ -589,23 +596,29 @@ const App = {
      */
     revealOnScroll() {
         const observerOptions = {
-            threshold: 0.1
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
         };
 
         const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
+            entries.forEach((entry, index) => {
                 if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
+                    // Staggered reveal for grid items
+                    const delay = (entry.target.classList.contains('card')) ? (index % 3) * 100 : 0;
+                    setTimeout(() => {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }, delay);
+                    observer.unobserve(entry.target);
                 }
             });
         }, observerOptions);
 
-        document.querySelectorAll('.glass-panel').forEach(panel => {
-            panel.style.opacity = '0';
-            panel.style.transform = 'translateY(20px)';
-            panel.style.transition = 'all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1)';
-            observer.observe(panel);
+        document.querySelectorAll('.glass-panel, .section-title, .hero-content').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.8s cubic-bezier(0.165, 0.84, 0.44, 1)';
+            observer.observe(el);
         });
     },
 
@@ -647,17 +660,52 @@ const App = {
         const menuToggle = document.querySelector('.menu-toggle');
         const navLinks = document.querySelector('.nav-links');
 
+        // Add backdrop element if it doesn't exist
+        let backdrop = document.querySelector('.nav-backdrop');
+        if (!backdrop) {
+            backdrop = document.createElement('div');
+            backdrop.className = 'nav-backdrop';
+            backdrop.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0,0,0,0.5);
+                backdrop-filter: blur(5px);
+                z-index: 950;
+                opacity: 0;
+                visibility: hidden;
+                transition: all 0.4s ease;
+            `;
+            document.body.appendChild(backdrop);
+        }
+
         if (menuToggle && navLinks) {
-            menuToggle.addEventListener('click', () => {
-                menuToggle.classList.toggle('active');
+            const toggle = () => {
+                const isActive = menuToggle.classList.toggle('active');
                 navLinks.classList.toggle('active');
-            });
+
+                if (isActive) {
+                    backdrop.style.opacity = '1';
+                    backdrop.style.visibility = 'visible';
+                    document.body.style.overflow = 'hidden';
+                } else {
+                    backdrop.style.opacity = '0';
+                    backdrop.style.visibility = 'hidden';
+                    document.body.style.overflow = '';
+                }
+            };
+
+            menuToggle.addEventListener('click', toggle);
+            backdrop.addEventListener('click', toggle);
 
             // Close menu when a link is clicked
             document.querySelectorAll('.nav-item a').forEach(link => {
                 link.addEventListener('click', () => {
-                    menuToggle.classList.remove('active');
-                    navLinks.classList.remove('active');
+                    if (menuToggle.classList.contains('active')) {
+                        toggle();
+                    }
                 });
             });
         }

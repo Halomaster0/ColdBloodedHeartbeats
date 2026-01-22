@@ -115,32 +115,27 @@
         </nav>
     </header>
 
-    <main id="content-area">
-        <section id="hero">
-            <div class="video-background">
-                <!-- Video placeholder - In production this would be a 4K slow-mo clip -->
-                <video autoplay muted loop playsinline poster="Assets/IMG_6200.JPEG">
-                    <source src="" type="video/mp4">
-                </video>
+    <section id="hero">
+        <div class="hero-content">
+            <h1>Premium Reptiles.<br><span>Expertly Curated.</span></h1>
+            <p style="font-size: 1.1rem; max-width: 600px; margin: 0 auto var(--spacing-md);">Experience artisan
+                genetics and professional husbandry. Every animal is health-verified and feeding strong.</p>
+            <div class="cta-group">
+                <button id="cta-primary" class="btn">Browse Live Animals</button>
+                <button id="cta-secondary" class="btn btn-outline">Book Consultation</button>
             </div>
-            <div class="hero-content">
-                <h1>Premium Reptiles.<br><span>Expertly Curated.</span></h1>
-                <p style="font-size: 1.1rem; max-width: 600px; margin: 0 auto var(--spacing-md);">Experience artisan
-                    genetics and professional husbandry. Every animal is health-verified and feeding strong.</p>
-                <div class="cta-group">
-                    <button id="cta-primary" class="btn">Browse Live Animals</button>
-                    <button id="cta-secondary" class="btn btn-outline">Book Consultation</button>
-                </div>
-            </div>
-        </section>
+        </div>
+    </section>
 
-        <section id="live-animals">
-            <h2 class="section-title">Investment Grade Reptiles</h2>
+    <main id="content-area">
+        <section id="live-animals" class="section-container">
+            <h2 class="section-title">Available Specimens</h2>
             <div class="grid">
                 <!-- Animal Card 1 -->
                 <div class="card glass-panel animal-card" id="BP-2026-05-01">
                     <div class="badge-verified">Verified Feeder</div>
-                    <img src="Assets/IMG_6200.JPEG" alt="Ball Python Piebald" class="animal-img">
+                    <img src="Assets/IMG_6200.JPEG" alt="Investment grade Ball Python morph: Piebald - health verified"
+                        class="animal-img">
                     <div class="animal-info">
                         <h3>Ball Python <span class="morph">Piebald</span></h3>
                         <p class="sku">SKU: BP-2026-05-01</p>
@@ -163,7 +158,8 @@
                 <!-- Animal Card 2 -->
                 <div class="card glass-panel animal-card" id="HG-2026-02-04">
                     <div class="badge-verified">Verified Feeder</div>
-                    <img src="Assets/IMG_6200.JPEG" alt="Western Hognose" class="animal-img">
+                    <img src="Assets/IMG_6200.JPEG" alt="Healthy Western Hognose morph: Arctic Conda - active feeder"
+                        class="animal-img">
                     <div class="animal-info">
                         <h3>Western Hognose <span class="morph">Arctic Conda</span></h3>
                         <p class="sku">SKU: HG-2026-02-04</p>
@@ -183,82 +179,86 @@
                     </div>
                 </div>
             </div>
+            <div class="text-center" style="margin-top: var(--spacing-lg);">
+                <a href="animals.html" class="btn btn-outline" style="padding: 1.2rem 3rem;">View Our Full Stock</a>
+            </div>
         </section>
-        <h2 class="section-title">Habitats & Custom Engineering</h2>
-        <div id="tank-configurator" class="glass-panel">
-            <div class="config-header">
-                <h3>Custom Tank Configurator</h3>
-                <div class="step-indicator">
-                    <span class="step active" data-step="1">1. Dimensions</span>
-                    <span class="step" data-step="2">2. Material</span>
-                    <span class="step" data-step="3">3. Add-ons</span>
-                </div>
-            </div>
-
-            <div class="config-steps">
-                <!-- Step 1 -->
-                <div class="config-step" id="step-1">
-                    <p>Select your primary enclosure footprint:</p>
-                    <div class="option-grid">
-                        <label class="config-option">
-                            <input type="radio" name="size" value="2x2x2" checked>
-                            <span class="option-card">2' x 2' x 2' (Arboreal)</span>
-                        </label>
-                        <label class="config-option">
-                            <input type="radio" name="size" value="4x2x2">
-                            <span class="option-card">4' x 2' x 2' (Standard Large)</span>
-                        </label>
-                        <label class="config-option">
-                            <input type="radio" name="size" value="6x2x2">
-                            <span class="option-card">6' x 2' x 2' (Monster)</span>
-                        </label>
+        <section id="habitats" class="section-container">
+            <h2 class="section-title">Habitats & Custom Engineering</h2>
+            <div id="tank-configurator" class="glass-panel">
+                <div class="config-header">
+                    <h3>Custom Tank Configurator</h3>
+                    <div class="step-indicator">
+                        <span class="step active" data-step="1">1. Dimensions</span>
+                        <span class="step" data-step="2">2. Material</span>
+                        <span class="step" data-step="3">3. Add-ons</span>
                     </div>
                 </div>
 
-                <!-- Step 2 -->
-                <div class="config-step hidden" id="step-2">
-                    <p>Choose your enclosure material:</p>
-                    <div class="option-grid">
-                        <label class="config-option">
-                            <input type="radio" name="material" value="pvc" checked>
-                            <span class="option-card">High-Density PVC (Best Heat)</span>
-                        </label>
-                        <label class="config-option">
-                            <input type="radio" name="material" value="wood">
-                            <span class="option-card">Furniture Grade Wood</span>
-                        </label>
+                <div class="config-steps">
+                    <!-- Step 1 -->
+                    <div class="config-step" id="step-1">
+                        <p>Select your primary enclosure footprint:</p>
+                        <div class="option-grid">
+                            <label class="config-option">
+                                <input type="radio" name="size" value="2x2x2" checked>
+                                <span class="option-card">2' x 2' x 2' (Arboreal)</span>
+                            </label>
+                            <label class="config-option">
+                                <input type="radio" name="size" value="4x2x2">
+                                <span class="option-card">4' x 2' x 2' (Standard Large)</span>
+                            </label>
+                            <label class="config-option">
+                                <input type="radio" name="size" value="6x2x2">
+                                <span class="option-card">6' x 2' x 2' (Monster)</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="config-step hidden" id="step-2">
+                        <p>Choose your enclosure material:</p>
+                        <div class="option-grid">
+                            <label class="config-option">
+                                <input type="radio" name="material" value="pvc" checked>
+                                <span class="option-card">High-Density PVC (Best Heat)</span>
+                            </label>
+                            <label class="config-option">
+                                <input type="radio" name="material" value="wood">
+                                <span class="option-card">Furniture Grade Wood</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div class="config-step hidden" id="step-3">
+                        <p>Select professional add-ons:</p>
+                        <div class="option-grid">
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="addon" value="heat">
+                                <span class="option-card">Radiant Heat Panel</span>
+                            </label>
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="addon" value="led">
+                                <span class="option-card">Bioactive LED Bar</span>
+                            </label>
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="addon" value="misting">
+                                <span class="option-card">Misting Hole Prep</span>
+                            </label>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Step 3 -->
-                <div class="config-step hidden" id="step-3">
-                    <p>Select professional add-ons:</p>
-                    <div class="option-grid">
-                        <label class="checkbox-option">
-                            <input type="checkbox" name="addon" value="heat">
-                            <span class="option-card">Radiant Heat Panel</span>
-                        </label>
-                        <label class="checkbox-option">
-                            <input type="checkbox" name="addon" value="led">
-                            <span class="option-card">Bioactive LED Bar</span>
-                        </label>
-                        <label class="checkbox-option">
-                            <input type="checkbox" name="addon" value="misting">
-                            <span class="option-card">Misting Hole Prep</span>
-                        </label>
-                    </div>
+                <div class="config-nav">
+                    <button id="btn-prev" class="btn btn-outline" disabled>Previous</button>
+                    <button id="btn-next" class="btn">Next Step</button>
                 </div>
             </div>
-
-            <div class="config-nav">
-                <button id="btn-prev" class="btn btn-outline" disabled>Previous</button>
-                <button id="btn-next" class="btn">Next Step</button>
-            </div>
-        </div>
         </section>
 
         <!-- Cross-Promotion: The Den -->
-        <section id="the-den-promo">
+        <section id="the-den-promo" class="section-container">
             <h2 class="section-title">Explore Our Collection</h2>
             <p class="text-center"
                 style="margin-bottom: var(--spacing-lg); max-width: 700px; margin-left: auto; margin-right: auto;">

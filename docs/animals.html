@@ -49,7 +49,8 @@
                 <!-- Sample Animal Card 1 -->
                 <div class="card glass-panel animal-card">
                     <div class="badge-verified">Verified Feeder</div>
-                    <img src="Assets/IMG_6200.JPEG" alt="Ball Python" class="animal-img">
+                    <img src="Assets/IMG_6200.JPEG"
+                        alt="Available Ball Python: Banana Clown - Vibrant yellow and purple colors" class="animal-img">
                     <div class="animal-info">
                         <h3>Ball Python <span class="morph">Banana Clown</span></h3>
                         <p class="sku">SKU: BP-2026-06-12</p>
@@ -62,7 +63,8 @@
                 <!-- Sample Animal Card 2 -->
                 <div class="card glass-panel animal-card">
                     <div class="badge-verified">Verified Feeder</div>
-                    <img src="Assets/IMG_6200.JPEG" alt="Leopard Gecko" class="animal-img">
+                    <img src="Assets/IMG_6200.JPEG" alt="Premium Leopard Gecko: Black Night - rare solid black morph"
+                        class="animal-img">
                     <div class="animal-info">
                         <h3>Leopard Gecko <span class="morph">Black Night</span></h3>
                         <p class="sku">SKU: LG-2026-03-05</p>
@@ -75,7 +77,9 @@
                 <!-- Sample Animal Card 3 -->
                 <div class="card glass-panel animal-card">
                     <div class="badge-verified">Verified Feeder</div>
-                    <img src="Assets/IMG_6200.JPEG" alt="Green Tree Python" class="animal-img">
+                    <img src="Assets/IMG_6200.JPEG"
+                        alt="Green Tree Python: Sorong Type - Brilliant green with blue/yellow scales"
+                        class="animal-img">
                     <div class="animal-info">
                         <h3>Green Tree Python <span class="morph">Sorong Type</span></h3>
                         <p class="sku">SKU: GTP-2026-08-19</p>
@@ -88,7 +92,8 @@
                 <!-- Sample Animal Card 4 -->
                 <div class="card glass-panel animal-card">
                     <div class="badge-verified">Verified Feeder</div>
-                    <img src="Assets/IMG_6200.JPEG" alt="Western Hognose" class="animal-img">
+                    <img src="Assets/IMG_6200.JPEG" alt="Western Hognose: Arctic Conda - high contrast pattern"
+                        class="animal-img">
                     <div class="animal-info">
                         <h3>Western Hognose <span class="morph">Arctic Conda</span></h3>
                         <p class="sku">SKU: WH-2026-01-20</p>
@@ -135,6 +140,82 @@
                 <button class="btn modal-close-btn">Close</button>
             </div>
         </div>
+    </div>
+
+    <!-- Professional Checkout Modal -->
+    <div id="checkout-modal" class="modal-overlay hidden">
+        <div class="modal-content glass-panel checkout-modal">
+            <button class="modal-close checkout-close">&times;</button>
+            <div id="checkout-content">
+                <h2 class="checkout-title">Complete Your Order</h2>
+                <div class="checkout-summary">
+                    <h3>Order Summary</h3>
+                    <div class="checkout-order-list">
+                        <!-- Items injected by JS -->
+                    </div>
+                    <div class="checkout-total">
+                        <span>Total</span>
+                        <span class="checkout-total-amount">$0.00</span>
+                    </div>
+                </div>
+                <form id="checkout-form" action="https://formspree.io/f/mjggezoe" method="POST">
+                    <div class="form-group">
+                        <label for="checkout-email">Email Address</label>
+                        <input type="email" id="checkout-email" name="email" required placeholder="your@email.com">
+                    </div>
+                    <div class="form-group">
+                        <label>Payment Method</label>
+                        <div class="payment-options">
+                            <label class="payment-option">
+                                <input type="radio" name="payment-method" value="E-Transfer" required>
+                                <span class="payment-card">💳 E-Transfer</span>
+                            </label>
+                            <label class="payment-option">
+                                <input type="radio" name="payment-method" value="PayPal">
+                                <span class="payment-card">🅿️ PayPal</span>
+                            </label>
+                            <label class="payment-option">
+                                <input type="radio" name="payment-method" value="Card">
+                                <span class="payment-card">💳 Card</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div id="payment-details" class="payment-details-section">
+                        <!-- Dynamic content based on payment method -->
+                    </div>
+                    <button type="submit" class="btn btn-submit-order">Submit Order</button>
+                </form>
+            </div>
+            <div id="checkout-success" class="hidden text-center">
+                <h2>✅ Order Received!</h2>
+                <p>We've sent a confirmation email. You'll receive payment instructions shortly.</p>
+                <button class="btn checkout-close">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cart Sidebar -->
+    <div class="cart-sidebar">
+        <div class="cart-header">
+            <h3>Your Cart</h3>
+            <button class="cart-close">&times;</button>
+        </div>
+        <div class="cart-items">
+            <!-- Items injected by JS -->
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total</span>
+                <span class="total-amount">$0.00</span>
+            </div>
+            <button class="btn btn-checkout">Checkout</button>
+        </div>
+    </div>
+
+    <!-- Floating Cart Trigger -->
+    <div class="cart-trigger">
+        <span class="cart-icon">🛒</span>
+        <span class="cart-count">0</span>
     </div>
 
     <script src="app.js"></script>

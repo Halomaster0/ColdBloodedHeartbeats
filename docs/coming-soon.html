@@ -13,13 +13,43 @@
     <link rel="stylesheet" href="style.css">
 </head>
 
-<body class="center-content">
-    <div class="glass-panel text-center" style="max-width: 600px;">
-        <h1 style="font-size: 3rem;">Jungle Knowledge <br><span>Coming Soon.</span></h1>
-        <p style="margin: 2rem 0; opacity: 0.8;">Our specialists are currently documenting hundreds of species-specific
-            husbandry guides. We're committed to your success as a keeper.</p>
-        <a href="index.html" class="btn">Return home</a>
-    </div>
+<body>
+    <header id="main-header">
+        <nav>
+            <div class="logo">
+                <a href="index.html"
+                    style="text-decoration: none; color: inherit; display: flex; flex-direction: row; align-items: center; gap: 12px;">
+                    <img src="Assets/IMG_6200.JPEG" alt="Cold Blooded Heartbeats Logo">
+                    <div class="logo-text">Cold Blooded Heartbeats</div>
+                </a>
+            </div>
+            <button class="menu-toggle" aria-label="Toggle Navigation">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </button>
+            <ul class="nav-links" id="nav-menu">
+                <li class="nav-item"><a href="animals.html">Live Animals</a></li>
+                <li class="nav-item"><a href="pantry.html">The Pantry</a></li>
+                <li class="nav-item"><a href="habitats.html">Habitats</a></li>
+                <li class="nav-item"><a href="den.html">The Den</a></li>
+                <li class="nav-item"><a href="coming-soon.html">Care Center</a></li>
+                <li class="nav-item"><a href="#" class="btn-consult">Bookings</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="center-content">
+        <div class="glass-panel text-center" style="max-width: 600px;">
+            <h1 style="font-size: 3rem;">Jungle Knowledge <br><span>Coming Soon.</span></h1>
+            <p style="margin: 2rem 0; opacity: 0.8;">Our specialists are currently documenting hundreds of
+                species-specific
+                husbandry guides. We're committed to your success as a keeper.</p>
+            <a href="index.html" class="btn">Return home</a>
+        </div>
+    </main>
+
+    <script src="app.js"></script>
 </body>
 
 </html>
