@@ -1,210 +1,210 @@
 [
-    {
-        "id": "BP-2026-05-01",
-        "category": "animals",
-        "name": "Ball Python",
-        "variant": "Piebald",
-        "price": 450.0,
-        "quantity": 1,
-        "image": "Assets/IMG_6200.JPEG",
-        "status": "available",
-        "verified_feeder": true,
-        "feeding_log": [
-            {
-                "date": "Jan 12",
-                "food_type": "F/T Rat Pup"
-            },
-            {
-                "date": "Jan 05",
-                "food_type": "F/T Rat Pup"
-            },
-            {
-                "date": "Dec 29",
-                "food_type": "F/T Rat Pup"
-            }
-        ]
-    },
-    {
-        "id": "HG-2026-02-04",
-        "category": "animals",
-        "name": "Western Hognose",
-        "variant": "Arctic Conda",
-        "price": 675.0,
-        "quantity": 1,
-        "image": "Assets/IMG_6200.JPEG",
-        "status": "available",
-        "verified_feeder": true,
-        "feeding_log": [
-            {
-                "date": "Jan 14",
-                "food_type": "Scented Pinky"
-            },
-            {
-                "date": "Jan 07",
-                "food_type": "Scented Pinky"
-            },
-            {
-                "date": "Dec 31",
-                "food_type": "Scented Pinky"
-            }
-        ]
-    },
-    {
-        "id": "BP-2026-06-12",
-        "category": "animals",
-        "name": "Ball Python",
-        "variant": "Banana Clown",
-        "price": 1200.0,
-        "quantity": 1,
-        "image": "Assets/IMG_6200.JPEG",
-        "status": "available",
-        "verified_feeder": true,
-        "feeding_log": []
-    },
-    {
-        "id": "LG-2026-03-05",
-        "category": "animals",
-        "name": "Leopard Gecko",
-        "variant": "Black Night",
-        "price": 850.0,
-        "quantity": 1,
-        "image": "Assets/IMG_6200.JPEG",
-        "status": "available",
-        "verified_feeder": true,
-        "feeding_log": []
-    },
-    {
-        "id": "GTP-2026-08-19",
-        "category": "animals",
-        "name": "Green Tree Python",
-        "variant": "Sorong Type",
-        "price": 1550.0,
-        "quantity": 1,
-        "image": "Assets/IMG_6200.JPEG",
-        "status": "available",
-        "verified_feeder": true,
-        "feeding_log": []
-    },
-    {
-        "id": "WH-2026-01-20",
-        "category": "animals",
-        "name": "Western Hognose",
-        "variant": "Arctic Conda",
-        "price": 675.0,
-        "quantity": 1,
-        "image": "Assets/IMG_6200.JPEG",
-        "status": "available",
-        "verified_feeder": true,
-        "feeding_log": []
-    },
-    {
-        "category": "pantry",
-        "status": "available",
-        "id": "PANTRY-5232",
-        "variant": "Fresh Large",
-        "name": "Dubia Roaches",
-        "price": 19.99,
-        "image": "Assets/IMG_6200.JPEG",
-        "quantity": 1
-    },
-    {
-        "category": "pantry",
-        "status": "available",
-        "id": "PANTRY-7244",
-        "variant": "25 count",
-        "name": "Frozen Pinky Mice",
-        "price": 24.99,
-        "image": "Assets/IMG_6200.JPEG",
-        "quantity": 1
-    },
-    {
-        "category": "pantry",
-        "status": "available",
-        "id": "PANTRY-8784",
-        "variant": "12% UVB",
-        "name": "Arcadia ProT5 Kit",
-        "price": 84.99,
-        "image": "Assets/IMG_6200.JPEG",
-        "quantity": 1
-    },
-    {
-        "category": "pantry",
-        "status": "available",
-        "id": "PANTRY-4678",
-        "variant": "Ultra Fine",
-        "name": "Calcium + D3",
-        "price": 12.5,
-        "image": "Assets/IMG_6200.JPEG",
-        "quantity": 1
-    },
-    {
-        "category": "habitats",
-        "status": "available",
-        "id": "HABITATS-3973",
-        "variant": "4x2x2 Matte",
-        "name": "PVC Apex",
-        "price": 399.0,
-        "image": "Assets/IMG_6200.JPEG",
-        "quantity": 1
-    },
-    {
-        "category": "habitats",
-        "status": "available",
-        "id": "HABITATS-7996",
-        "variant": "Arboreal Kit",
-        "name": "Bio-Booster",
-        "price": 145.0,
-        "image": "Assets/IMG_6200.JPEG",
-        "quantity": 1
-    },
-    {
-        "category": "habitats",
-        "status": "available",
-        "id": "HABITATS-9552",
-        "variant": "5x3x3 XL",
-        "name": "PVC Fortress",
-        "price": 749.0,
-        "image": "Assets/IMG_6200.JPEG",
-        "quantity": 1
-    },
-    {
-        "category": "habitats",
-        "status": "available",
-        "id": "HABITATS-2117",
-        "variant": "Dual Nozzle",
-        "name": "Mistify Pro",
-        "price": 189.0,
-        "image": "Assets/IMG_6200.JPEG",
-        "quantity": 1
-    },
-    {
-        "category": "den",
-        "status": "available",
-        "id": "DEN-2415",
-        "variant": "Midnight Edition",
-        "name": "Den Signature Hoodie",
-        "price": 55.0,
-        "image": "Assets/IMG_6200.JPEG",
-        "quantity": 1
-    },
-    {
-        "category": "den",
-        "status": "available",
-        "id": "DEN-4881",
-        "variant": "Limited Run",
-        "name": "Artisanal Enclosure Decor",
-        "price": 85.0,
-        "image": "Assets/IMG_6200.JPEG",
-        "quantity": 1
-    },
-    {
-        "category": "den",
-        "status": "available",
-        "id": "DEN-9156",
-        "variant": "Vintage Gray",
-        "name": "CBH Keeper Tee",
-        "price": 32.0,
-        "image": "Assets/IMG_6200.JPEG",
-        "quantity": 1
-    }
+  {
+    "id": "BP-2026-05-01",
+    "category": "animals",
+    "name": "Ball Python",
+    "variant": "Piebald",
+    "price": 450.0,
+    "quantity": 1,
+    "image": "Assets/IMG_6200.JPEG",
+    "status": "available",
+    "verified_feeder": true,
+    "feeding_log": [
+      {
+        "date": "Jan 12",
+        "food_type": "F/T Rat Pup"
+      },
+      {
+        "date": "Jan 05",
+        "food_type": "F/T Rat Pup"
+      },
+      {
+        "date": "Dec 29",
+        "food_type": "F/T Rat Pup"
+      }
+    ]
+  },
+  {
+    "id": "HG-2026-02-04",
+    "category": "animals",
+    "name": "Western Hognose",
+    "variant": "Arctic Conda",
+    "price": 675.0,
+    "quantity": 1,
+    "image": "Assets/IMG_6200.JPEG",
+    "status": "available",
+    "verified_feeder": true,
+    "feeding_log": [
+      {
+        "date": "Jan 14",
+        "food_type": "Scented Pinky"
+      },
+      {
+        "date": "Jan 07",
+        "food_type": "Scented Pinky"
+      },
+      {
+        "date": "Dec 31",
+        "food_type": "Scented Pinky"
+      }
+    ]
+  },
+  {
+    "id": "BP-2026-06-12",
+    "category": "animals",
+    "name": "Ball Python",
+    "variant": "Banana Clown",
+    "price": 1200.0,
+    "quantity": 1,
+    "image": "Assets/IMG_6200.JPEG",
+    "status": "available",
+    "verified_feeder": true,
+    "feeding_log": []
+  },
+  {
+    "id": "LG-2026-03-05",
+    "category": "animals",
+    "name": "Leopard Gecko",
+    "variant": "Black Night",
+    "price": 850.0,
+    "quantity": 1,
+    "image": "Assets/IMG_6200.JPEG",
+    "status": "available",
+    "verified_feeder": true,
+    "feeding_log": []
+  },
+  {
+    "id": "GTP-2026-08-19",
+    "category": "animals",
+    "name": "Green Tree Python",
+    "variant": "Sorong Type",
+    "price": 1550.0,
+    "quantity": 1,
+    "image": "Assets/IMG_6200.JPEG",
+    "status": "available",
+    "verified_feeder": true,
+    "feeding_log": []
+  },
+  {
+    "id": "WH-2026-01-20",
+    "category": "animals",
+    "name": "Western Hognose",
+    "variant": "Arctic Conda",
+    "price": 675.0,
+    "quantity": 1,
+    "image": "Assets/IMG_6200.JPEG",
+    "status": "available",
+    "verified_feeder": true,
+    "feeding_log": []
+  },
+  {
+    "id": "PANTRY-5232",
+    "category": "pantry",
+    "name": "Dubia Roaches",
+    "variant": "Fresh Large",
+    "price": 19.99,
+    "quantity": 1,
+    "image": "Assets/IMG_6200.JPEG",
+    "status": "available"
+  },
+  {
+    "id": "PANTRY-7244",
+    "category": "pantry",
+    "name": "Frozen Pinky Mice",
+    "variant": "25 count",
+    "price": 24.99,
+    "quantity": 1,
+    "image": "Assets/IMG_6200.JPEG",
+    "status": "available"
+  },
+  {
+    "id": "PANTRY-8784",
+    "category": "pantry",
+    "name": "Arcadia ProT5 Kit",
+    "variant": "12% UVB",
+    "price": 84.99,
+    "quantity": 1,
+    "image": "Assets/IMG_6200.JPEG",
+    "status": "available"
+  },
+  {
+    "id": "PANTRY-4678",
+    "category": "pantry",
+    "name": "Calcium + D3",
+    "variant": "Ultra Fine",
+    "price": 12.5,
+    "quantity": 1,
+    "image": "Assets/IMG_6200.JPEG",
+    "status": "available"
+  },
+  {
+    "id": "HABITATS-3973",
+    "category": "habitats",
+    "name": "PVC Apex",
+    "variant": "4x2x2 Matte",
+    "price": 399.0,
+    "quantity": 1,
+    "image": "Assets/IMG_6200.JPEG",
+    "status": "available"
+  },
+  {
+    "id": "HABITATS-7996",
+    "category": "habitats",
+    "name": "Bio-Booster",
+    "variant": "Arboreal Kit",
+    "price": 145.0,
+    "quantity": 1,
+    "image": "Assets/IMG_6200.JPEG",
+    "status": "available"
+  },
+  {
+    "id": "HABITATS-9552",
+    "category": "habitats",
+    "name": "PVC Fortress",
+    "variant": "5x3x3 XL",
+    "price": 749.0,
+    "quantity": 1,
+    "image": "Assets/IMG_6200.JPEG",
+    "status": "available"
+  },
+  {
+    "id": "HABITATS-2117",
+    "category": "habitats",
+    "name": "Mistify Pro",
+    "variant": "Dual Nozzle",
+    "price": 189.0,
+    "quantity": 1,
+    "image": "Assets/IMG_6200.JPEG",
+    "status": "available"
+  },
+  {
+    "id": "DEN-2415",
+    "category": "den",
+    "name": "Den Signature Hoodie",
+    "variant": "Midnight Edition",
+    "price": 55.0,
+    "quantity": 1,
+    "image": "Assets/IMG_6200.JPEG",
+    "status": "available"
+  },
+  {
+    "id": "DEN-4881",
+    "category": "den",
+    "name": "Artisanal Enclosure Decor",
+    "variant": "Limited Run",
+    "price": 85.0,
+    "quantity": 1,
+    "image": "Assets/IMG_6200.JPEG",
+    "status": "available"
+  },
+  {
+    "id": "DEN-9156",
+    "category": "den",
+    "name": "CBH Keeper Tee",
+    "variant": "Vintage Gray",
+    "price": 32.0,
+    "quantity": 1,
+    "image": "Assets/IMG_6200.JPEG",
+    "status": "available"
+  }
 ]
