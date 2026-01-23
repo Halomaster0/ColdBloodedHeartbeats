@@ -110,7 +110,7 @@ const App = {
                 <div class="animal-info">
                     <h3>${item.name} <span class="morph">${item.variant}</span></h3>
                     <p class="sku">SKU: ${item.id}</p>
-                    ${feeding_log || `<p>${item.description || ''}</p>`}
+                    ${feedingLog || `<p>${item.description || ''}</p>`}
                     <div class="card-footer">
                         <span class="price">$${item.price.toFixed(2)}</span>
                         ${qtyControl}
