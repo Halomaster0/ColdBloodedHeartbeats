@@ -10,7 +10,10 @@ from models import InventoryItem
 class Storage:
     """Handles reading/writing inventory data to local JSON file."""
     
-    def __init__(self, filepath: str = "inventory.json"):
+    def __init__(self, filepath: Optional[str] = None):
+        if filepath is None:
+            # Default to the same directory as storage.py
+            filepath = os.path.join(os.path.dirname(os.path.abspath(__file__)), "inventory.json")
         self.filepath = filepath
         self.items: List[InventoryItem] = []
         self.load()

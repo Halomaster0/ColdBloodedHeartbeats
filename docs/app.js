@@ -20,11 +20,106 @@ const App = {
 
         this.loadCart();
         this.setupEventListeners();
-        this.revealOnScroll();
+        this.loadInventory(); // Dynamic stock loading
         this.updateConfiguratorUI();
-        this.initProductButtons(); // Combined Buy/Inquiry logic
         this.toggleMenu(); // Initialize mobile menu
-        this.initEmailJS();
+    },
+
+    /**
+     * Fetch and render inventory from JSON
+     */
+    async loadInventory() {
+        const containers = {
+            'index': document.querySelector('#live-animals .grid'),
+            'animals': document.querySelector('#browse-animals .grid'),
+            'pantry': document.querySelector('#browse-pantry .grid'),
+            'habitats': document.querySelector('#browse-habitats .grid'),
+            'den': document.querySelector('#the-den-collection .grid')
+        };
+
+        // Determine which page we are on
+        let currentPage = 'index';
+        const path = window.location.pathname;
+        if (path.includes('animals.html')) currentPage = 'animals';
+        else if (path.includes('pantry.html')) currentPage = 'pantry';
+        else if (path.includes('habitats.html')) currentPage = 'habitats';
+        else if (path.includes('den.html')) currentPage = 'den';
+
+        const container = containers[currentPage];
+        if (!container) return;
+
+        try {
+            const response = await fetch('inventory.json');
+            if (!response.ok) throw new Error("Failed to load inventory");
+            const inventory = await response.json();
+
+            // Filter by category
+            let category = currentPage;
+            if (currentPage === 'index' || currentPage === 'animals') category = 'animals';
+
+            let items = inventory.filter(item => item.category === category && item.status !== 'sold');
+
+            // Limit to 2 for homepage if needed, or keep all
+            if (currentPage === 'index') items = items.slice(0, 2);
+
+            if (items.length > 0) {
+                container.innerHTML = items.map(item => this.createCardHTML(item)).join('');
+
+                // Re-initialize buttons and animations after injection
+                this.initProductButtons();
+                this.revealOnScroll();
+            }
+        } catch (error) {
+            console.error("📦 Inventory Load Error:", error);
+        }
+    },
+
+    createCardHTML(item) {
+        const isAnimal = item.category === 'animals';
+        const badge = (isAnimal && item.verified_feeder) ? '<div class="badge-verified">Verified Feeder</div>' : '';
+
+        let feedingLog = '';
+        if (isAnimal && item.feeding_log && item.feeding_log.length > 0) {
+            feedingLog = `
+                <div class="meal-log">
+                    <p>Last ${item.feeding_log.length} Meals:</p>
+                    <ul>
+                        ${item.feeding_log.map(log => `<li>${log.date} - ${log.food_type}</li>`).join('')}
+                    </ul>
+                </div>
+            `;
+        }
+
+        const buyBtnText = isAnimal ? 'Buy Now' : (item.variant.includes('Subscribe') ? 'Subscribe' : 'Add to Cart');
+        const buyBtnClass = isAnimal ? 'btn-buy' : (item.variant.includes('Subscribe') ? 'btn-subscribe' : 'btn-buy');
+
+        const qtyControl = (!isAnimal && !item.variant.includes('Subscribe')) ? `
+            <div class="qty-control">
+                <button class="qty-btn qty-minus">-</button>
+                <input type="number" value="1" min="1" class="qty-input">
+                <button class="qty-btn qty-plus">+</button>
+            </div>
+        ` : '';
+
+        const cardClass = isAnimal ? 'card glass-panel animal-card' : 'card glass-panel';
+
+        return `
+            <div class="${cardClass}" id="${item.id}">
+                ${badge}
+                <img src="${item.image}" alt="${item.name} ${item.variant}" class="${item.category === 'animals' ? 'animal-img' : item.category + '-img'}">
+                <div class="animal-info">
+                    <h3>${item.name} <span class="morph">${item.variant}</span></h3>
+                    <p class="sku">SKU: ${item.id}</p>
+                    ${feeding_log || `<p>${item.description || ''}</p>`}
+                    <div class="card-footer">
+                        <span class="price">$${item.price.toFixed(2)}</span>
+                        ${qtyControl}
+                        <button class="btn btn-sm ${buyBtnClass}">${buyBtnText}</button>
+                    </div>
+                    ${isAnimal ? '<a href="coming-soon.html" class="care-link">Download Care Guide (PDF)</a>' : ''}
+                </div>
+            </div>
+        `;
     },
 
     initEmailJS() {

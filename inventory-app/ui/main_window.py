@@ -27,8 +27,8 @@ class MainWindow(ctk.CTk):
         self.minsize(900, 600)
         
         # Initialize storage and publisher
-        self.storage = Storage("inventory.json")
-        self.publisher = GitHubPublisher("config.json")
+        self.storage = Storage()
+        self.publisher = GitHubPublisher()
         
         # Current category filter
         self.current_category = "animals"

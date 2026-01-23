@@ -11,7 +11,9 @@ from typing import Optional, Tuple
 class GitHubPublisher:
     """Handles publishing inventory and assets to GitHub."""
     
-    def __init__(self, config_path: str = "config.json"):
+    def __init__(self, config_path: Optional[str] = None):
+        if config_path is None:
+            config_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "config.json")
         self.config = self._load_config(config_path)
         self.base_url = "https://api.github.com"
     
