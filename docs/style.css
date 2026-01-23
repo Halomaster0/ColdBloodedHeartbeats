@@ -65,10 +65,12 @@ main {
     /* No offset needed for hero-based pages as they center their own content */
 }
 
-body.center-content {
+.center-content {
     display: flex;
     align-items: center;
     justify-content: center;
+    min-height: 80vh;
+    /* Ensure it takes up vertical space */
 }
 
 .text-center {
