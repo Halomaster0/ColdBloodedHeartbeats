@@ -1,0 +1,100 @@
+[
+    {
+        "id": "BP-2026-05-01",
+        "category": "animals",
+        "name": "Ball Python",
+        "variant": "Piebald",
+        "price": 450.00,
+        "quantity": 1,
+        "image": "Assets/IMG_6200.JPEG",
+        "status": "available",
+        "verified_feeder": true,
+        "feeding_log": [
+            {
+                "date": "Jan 12",
+                "food_type": "F/T Rat Pup"
+            },
+            {
+                "date": "Jan 05",
+                "food_type": "F/T Rat Pup"
+            },
+            {
+                "date": "Dec 29",
+                "food_type": "F/T Rat Pup"
+            }
+        ]
+    },
+    {
+        "id": "HG-2026-02-04",
+        "category": "animals",
+        "name": "Western Hognose",
+        "variant": "Arctic Conda",
+        "price": 675.00,
+        "quantity": 1,
+        "image": "Assets/IMG_6200.JPEG",
+        "status": "available",
+        "verified_feeder": true,
+        "feeding_log": [
+            {
+                "date": "Jan 14",
+                "food_type": "Scented Pinky"
+            },
+            {
+                "date": "Jan 07",
+                "food_type": "Scented Pinky"
+            },
+            {
+                "date": "Dec 31",
+                "food_type": "Scented Pinky"
+            }
+        ]
+    },
+    {
+        "id": "BP-2026-06-12",
+        "category": "animals",
+        "name": "Ball Python",
+        "variant": "Banana Clown",
+        "price": 1200.00,
+        "quantity": 1,
+        "image": "Assets/IMG_6200.JPEG",
+        "status": "available",
+        "verified_feeder": true,
+        "feeding_log": []
+    },
+    {
+        "id": "LG-2026-03-05",
+        "category": "animals",
+        "name": "Leopard Gecko",
+        "variant": "Black Night",
+        "price": 850.00,
+        "quantity": 1,
+        "image": "Assets/IMG_6200.JPEG",
+        "status": "available",
+        "verified_feeder": true,
+        "feeding_log": []
+    },
+    {
+        "id": "GTP-2026-08-19",
+        "category": "animals",
+        "name": "Green Tree Python",
+        "variant": "Sorong Type",
+        "price": 1550.00,
+        "quantity": 1,
+        "image": "Assets/IMG_6200.JPEG",
+        "status": "available",
+        "verified_feeder": true,
+        "feeding_log": []
+    },
+    {
+        "id": "WH-2026-01-20",
+        "category": "animals",
+        "name": "Western Hognose",
+        "variant": "Arctic Conda",
+        "price": 675.00,
+        "quantity": 1,
+        "image": "Assets/IMG_6200.JPEG",
+        "status": "available",
+        "verified_feeder": true,
+        "feeding_log": []
+    }
+]
